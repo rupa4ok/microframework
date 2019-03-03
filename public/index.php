@@ -19,4 +19,4 @@ $response =(new HtmlResponse('Hello, ' . $name . '!'))
     ->withHeader('X-Developer', 'Test');
 
 $emitter = new SapiEmitter();
-$emitter->send($response);
+$emitter->emit($response);
