@@ -14,12 +14,6 @@ use PHPUnit\Framework\TestCase;
 class RequestTest extends TestCase
 {
     
-    public function setUp(): void
-    {
-        $_GET = [];
-        $_POST = [];
-    }
-    
     public function testEmpty(): void
     {
         $request = new Request();
@@ -30,11 +24,12 @@ class RequestTest extends TestCase
     
     public function testQueryParams():void
     {
-        $_GET = $data = [
-            'name' => 'Тест',
-            'age' =>30
-        ];
-        $request = new Request();
+        $request = (new Request())
+            ->withQueryParams($data = [
+                'name' => 'Тест',
+                'age' => 30
+            ]
+            );
     
         self::assertEquals($data, $request->getQueryParams());
         self::assertNull($request->getParsedBody());
@@ -42,8 +37,8 @@ class RequestTest extends TestCase
     
     public function testParseBody():void
     {
-        $_POST = $data = ['title' => 'title'];
-        $request = new Request();
+        $request = (new Request())
+            ->withParsedBody($data = ['title' => 'title']);
         
         self::assertEquals([], $request->getQueryParams());
         self::assertEquals($data, $request->getParsedBody());
