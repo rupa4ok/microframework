@@ -3,9 +3,10 @@
 error_reporting(-1);
 header('Content-Type: text/html; charset=utf-8');
 
-use Framework\Http\ResponseSender;
+
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Diactoros\ServerRequestFactory;
+use Zend\HttpHandlerRunner\Emitter\SapiEmitter;
 
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
@@ -17,5 +18,5 @@ $name = $request->getQueryParams()['name'] ?? 'Гость';
 $response =(new HtmlResponse('Hello, ' . $name . '!'))
     ->withHeader('X-Developer', 'Test');
 
-$emitter = new ResponseSender();
+$emitter = new SapiEmitter();
 $emitter->send($response);
