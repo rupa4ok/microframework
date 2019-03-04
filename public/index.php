@@ -15,8 +15,14 @@ $request = ServerRequestFactory::fromGlobals();
 
 $name = $request->getQueryParams()['name'] ?? 'Гость';
 
-$response =(new HtmlResponse('Hello, ' . $name . '!'))
-    ->withHeader('X-Developer', 'Test');
+$path = $request->getUri()->getPath();
+
+if ($path === '/') {
+    $response =(new HtmlResponse('Hello, ' . $name . '!'))
+        ->withHeader('X-Developer', 'Test');
+} else {
+    $response = new HtmlResponse('Контакты');
+}
 
 $emitter = new SapiEmitter();
 $emitter->emit($response);

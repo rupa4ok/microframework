@@ -26,6 +26,7 @@
     "phpunit/phpunit": "^8.0"
   },
   "scripts": {
-    "test": "phpunit --color=always"
+    "test": "phpunit --color=always",
+    "serve": "php -S 0.0.0.0:8080 -t public"
   }
 }
